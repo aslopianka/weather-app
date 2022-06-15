@@ -4,14 +4,46 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  </head>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>weather-app</title>
+     <link
       rel="stylesheet"
       href="/Users/martinwalker/Desktop/weather-app/styles.css"
     />
   </head>
   <body>
-    <h1>Hello gitHub</h1>
+    <div class="container">
+      <h1>Anna's super sick weatherApp</h1>
+      <div id="box">
+          <div class="row">
+              <div class="col-6">
+                  <input
+                  type = "search"
+                  placeholder="Enter a City.."
+                  autofocus="on"
+                  id="city-input"
+                  class="form-control"
+                  >
+                  <h3 id ="city-name"></h3>
+                  <p id="date">Date</p>
+                  <p id="weather-info"></p>
+                  <p id="temperature"></p>
+                </div>
+                <div class="col-3">
+                    <form id="submit-form">
+                        <input type="submit" value="Submit" class="btn btn-success" id="submit-button">
+                        <!-- <button type="button" class="btn btn-success submitButton">Submit</button> -->
+                    </form>
+        
+                </div>
+                <div class="col-3"><button type="button" class="btn btn-success" id= "location-button">Current Location</button></div>
+            </div>
+        </div>
+        </div>
+        
     <script src="/Users/martinwalker/Desktop/weather-app/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
