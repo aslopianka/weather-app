@@ -27,14 +27,14 @@ function updateWeather(response) {
   const weather = response.data.weather[0].description;
   const weatherInfo = document.querySelector("#weather-info");
   weatherInfo.innerHTML = `${weather}`;
+  const h3 = document.querySelector("#city-name");
+  h3.innerHTML = `${response.data.name}`;
 }
 
 // city input from api rather than city input, because gives cleaner name
 function changeToCurrentCity(event) {
   event.preventDefault();
   const cityInput = document.querySelector("#city-input");
-  const h3 = document.querySelector("#city-name");
-  h3.innerHTML = `${cityInput.value}`;
   const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput.value}&appid=f7577236b82e90879ca7e6c7b2f05c47&units=${units}`;
   axios.get(apiUrl).then(updateWeather);
 }
