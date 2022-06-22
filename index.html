@@ -17,33 +17,51 @@
   <div class="container">
     <div id="box">
       <div class="row">
-        <div class="col-6">
-          <input type="search" placeholder="Enter a City.." autofocus="on" id="city-input" class="form-control">
-          <ul>
-            <li>
-              <h3 id="city-name"></h3>
+        <div class="col-4">
+          <div> <input type="search" placeholder="Enter a City.." autofocus="on" id="city-input" class="form-control">
+            <h1 id="city-name"></h1>
+            <ul>
+              <li>
+                <p id="date">Date</p>
+              </li>
+            </ul>
+            <div class="temperature-container">
+              <div id="temperature"></div>
+              <div id="units">
+                °C|F
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="image-container">
+            <form id="submit-form">
+              <input type="submit" value="Submit" class="btn btn-success" id="submit-button">
+              <!-- <button type="button" class="btn btn-success submitButton">Submit</button> -->
+            </form>
+            <img
+              src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/037/852/original/noun-cloud-2891855.png?1655714712"
+              alt="light rain">
+            <h6 id="weather-info"></h6>
+          </div>
+        </div>
+        <div class="col-4">
+          <button type="button" class="btn btn-success" id="location-button">Current
+            Location</button>
+          <ul id="additional-info">
+            <li id="windspeed">
             </li>
-            <li>
-              <p id="date">Date</p>
+            <li id="humidity">
             </li>
-            <li>
-              <p id="weather-info"></p>
+            </br>
+            <li id="temp-min">
+              <p> sunrise at 6:00</p>
             </li>
-            <li>
-              <p id="temperature">
-              </p>
+            <li id="temp-max">
+              <p> sunset at 20:00</p>
             </li>
           </ul>
         </div>
-        <div class="col-3">
-          <form id="submit-form">
-            <input type="submit" value="Submit" class="btn btn-success" id="submit-button">
-            <!-- <button type="button" class="btn btn-success submitButton">Submit</button> -->
-          </form>
-
-        </div>
-        <div class="col-3"><button type="button" class="btn btn-success" id="location-button">Current
-            Location</button></div>
       </div>
     </div>
     <span> <a href="https://github.com/aslopianka/weather-app">openSourceCode </a> by Anna Slopianka</span>

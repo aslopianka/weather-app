@@ -26,15 +26,29 @@ function search(city) {
 getCurrentFormatedDate();
 
 function updateWeather(response) {
+  // console.log(response);
   const temperature = Math.round(response.data.main.temp);
-  const temperatureElement = document.querySelector("#temperature");
-  temperatureElement.innerHTML = `${temperature} °C`;
-  const weather = response.data.weather[0].description;
-  const weatherInfo = document.querySelector("#weather-info");
-  weatherInfo.innerHTML = `${weather}`;
+  const weatherInfo = response.data.weather[0].description;
+  const humidityInfo = response.data.main.humidity;
+  const windspeedInfo = response.data.wind.speed;
+  // const tempMinInfo = Math.round(response.data.main.temp_min);
+  // const tempMaxInfo = Math.round(response.data.main.temp_max);
+  const weather = document.querySelector("#weather-info");
   const h3 = document.querySelector("#city-name");
+  const temperatureElement = document.querySelector("#temperature");
+  const humidity = document.querySelector("#humidity");
+  const windspeed = document.querySelector("#windspeed");
+  // const tempMin = document.querySelector("#temp-min");
+  // const tempMax = document.querySelector("#temp-max");
   h3.innerHTML = `${response.data.name}`;
+  temperatureElement.innerHTML = `${temperature}`;
+  weather.innerHTML = `${weatherInfo}`;
+  humidity.innerHTML = `Humidity: ${humidityInfo} %`;
+  windspeed.innerHTML = `Windspeed: ${windspeedInfo} km/h`;
+  // tempMin.innerHTML = `Minimum: ${tempMinInfo} °C`;
+  // tempMax.innerHTML = `Maximum: ${tempMaxInfo} °C`;
 }
+
 function changeToCityInput(event) {
   event.preventDefault();
   const cityInput = document.querySelector("#city-input");
@@ -42,8 +56,7 @@ function changeToCityInput(event) {
 }
 
 async function showLocation(position) {
-  const { latitude } = position.coords;
-  const { longitude } = position.coords;
+  const { latitude, longitude } = position.coords;
   const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${units}`;
   const weatherObject = await axios.get(apiUrl);
   search(weatherObject.data.name);
