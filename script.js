@@ -32,6 +32,7 @@ function search(city) {
 
 getCurrentFormatedDate();
 
+// trim code only 2 lines per thing ? or what martin said
 function updateWeather(response) {
   // console.log(response);
   const temperature = Math.round(response.data.main.temp);
@@ -47,6 +48,7 @@ function updateWeather(response) {
   const windspeed = document.querySelector("#windspeed");
   const tempMin = document.querySelector("#temp-min");
   const tempMax = document.querySelector("#temp-max");
+  const iconElement = document.querySelector("#icon");
   h3.innerHTML = `${response.data.name}`;
   temperatureElement.innerHTML = `${temperature}`;
   weather.innerHTML = `${weatherInfo}`;
@@ -54,6 +56,10 @@ function updateWeather(response) {
   windspeed.innerHTML = `Windspeed: ${windspeedInfo} km/h`;
   tempMin.innerHTML = `Minimum: ${tempMinInfo} °C`;
   tempMax.innerHTML = `Maximum: ${tempMaxInfo} °C`;
+  iconElement.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
 }
 
 function changeToCityInput(event) {
