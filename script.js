@@ -31,22 +31,22 @@ function updateWeather(response) {
   const weatherInfo = response.data.weather[0].description;
   const humidityInfo = response.data.main.humidity;
   const windspeedInfo = response.data.wind.speed;
-  // const tempMinInfo = Math.round(response.data.main.temp_min);
-  // const tempMaxInfo = Math.round(response.data.main.temp_max);
+  const tempMinInfo = Math.round(response.data.main.temp_min);
+  const tempMaxInfo = Math.round(response.data.main.temp_max);
   const weather = document.querySelector("#weather-info");
   const h3 = document.querySelector("#city-name");
   const temperatureElement = document.querySelector("#temperature");
   const humidity = document.querySelector("#humidity");
   const windspeed = document.querySelector("#windspeed");
-  // const tempMin = document.querySelector("#temp-min");
-  // const tempMax = document.querySelector("#temp-max");
+  const tempMin = document.querySelector("#temp-min");
+  const tempMax = document.querySelector("#temp-max");
   h3.innerHTML = `${response.data.name}`;
   temperatureElement.innerHTML = `${temperature}`;
   weather.innerHTML = `${weatherInfo}`;
   humidity.innerHTML = `Humidity: ${humidityInfo} %`;
   windspeed.innerHTML = `Windspeed: ${windspeedInfo} km/h`;
-  // tempMin.innerHTML = `Minimum: ${tempMinInfo} °C`;
-  // tempMax.innerHTML = `Maximum: ${tempMaxInfo} °C`;
+  tempMin.innerHTML = `Minimum: ${tempMinInfo} °C`;
+  tempMax.innerHTML = `Maximum: ${tempMaxInfo} °C`;
 }
 
 function changeToCityInput(event) {
