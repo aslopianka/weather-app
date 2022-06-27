@@ -1,5 +1,6 @@
 const apiKey = "f7577236b82e90879ca7e6c7b2f05c47";
 const units = "metric";
+let celsiusTemperature;
 
 function getCurrentFormatedDate() {
   const now = new Date();
@@ -31,8 +32,9 @@ function search(city) {
 }
 
 getCurrentFormatedDate();
-
-// trim code only 2 lines per thing ? or what martin said
+// toDo:
+// make functions more modular
+// make updateWeather more readable, timm it a little maybe
 function updateWeather(response) {
   // console.log(response);
   const temperature = Math.round(response.data.main.temp);
@@ -49,9 +51,9 @@ function updateWeather(response) {
   const tempMin = document.querySelector("#temp-min");
   const tempMax = document.querySelector("#temp-max");
   const iconElement = document.querySelector("#icon");
-  h3.innerHTML = `${response.data.name}`;
   temperatureElement.innerHTML = `${temperature}`;
   weather.innerHTML = `${weatherInfo}`;
+  h3.innerHTML = `${response.data.name}`;
   humidity.innerHTML = `Humidity: ${humidityInfo} %`;
   windspeed.innerHTML = `Windspeed: ${windspeedInfo} km/h`;
   tempMin.innerHTML = `Minimum: ${tempMinInfo} °C`;
@@ -89,3 +91,24 @@ const currentLocationButton = document.querySelector("#location-button");
 currentLocationButton.addEventListener("click", currentLocationButtonHandler);
 
 search("Berlin");
+
+function displayFahrenheitTemperature(event) {
+  event.preventDefault();
+  const temperatureElement = document.querySelector("#temperature");
+  celsiusTemperature = +temperatureElement.innerHTML;
+  const fahrenheitTemperature = `${
+    (temperatureElement.innerHTML * 9) / 5 + 32
+  }`;
+  temperatureElement.innerHTML = `${Math.round(fahrenheitTemperature)}`;
+}
+function displayCelsiusTemperature(event) {
+  event.preventDefault();
+  const temperatureElement = document.querySelector("#temperature");
+  temperatureElement.innerHTML = `${celsiusTemperature}`;
+}
+
+const fahrenheitLink = document.querySelector("#fahrenheit-link");
+fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
+
+const celsiusLink = document.querySelector("#celsius-link");
+celsiusLink.addEventListener("click", displayCelsiusTemperature);

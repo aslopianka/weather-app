@@ -28,7 +28,16 @@ p {
 }
 
 span {
-    font-size: 13px;
+    font-size: 12px;
+}
+
+a {
+    color: #000;
+
+}
+
+.container {
+    padding-top: 50px;
 }
 
 .image-container {
@@ -45,9 +54,6 @@ span {
 }
 
 
-.container {
-    padding-top: 25px;
-}
 
 #location-button {
     background-color: #b1c2a3;
