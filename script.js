@@ -35,6 +35,7 @@ getCurrentFormatedDate();
 // toDo:
 // make functions more modular
 // make updateWeather more readable, timm it a little maybe
+// add unit convention
 function updateWeather(response) {
   // console.log(response);
   const temperature = Math.round(response.data.main.temp);

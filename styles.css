@@ -17,11 +17,6 @@ ul {
 }
 
 
-img {
-    max-width: 100%;
-    margin-top: 50px;
-
-}
 
 p {
     margin: 0;
@@ -53,6 +48,30 @@ a {
     align-items: flex-start;
 }
 
+.forecast {
+    text-align: center;
+    margin-top: 20px;
+
+}
+
+.forecast-date {
+    font-size: 16px;
+}
+
+.forecast-min-temperature {
+    font-size: 13px;
+}
+
+.forecast-max-temperature {
+    font-size: 13px;
+
+}
+
+#icon {
+    max-width: 100%;
+    margin-top: 50px;
+
+}
 
 
 #location-button {
