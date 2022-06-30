@@ -1,6 +1,5 @@
 const apiKey = "f7577236b82e90879ca7e6c7b2f05c47";
 const units = "metric";
-let celsiusTemperature;
 
 function getCurrentFormatedDate() {
   const now = new Date();
@@ -26,24 +25,53 @@ function getCurrentFormatedDate() {
   const date = document.querySelector("#date");
   date.innerHTML = `${day}, ${hours}:${minutes}`;
 }
-function search(city) {
-  const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=f7577236b82e90879ca7e6c7b2f05c47&units=${units}`;
-  axios.get(apiUrl).then(updateWeather);
+getCurrentFormatedDate();
+
+function formatedForecastDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[day];
+}
+// functions to update userInterface (UI)
+
+function displayForecast(data) {
+  console.log(data);
+  let dailyForecast = data.daily;
+  const forecastElement = document.querySelector("#forecast");
+  let forecastHTML = `<div class="row">`;
+  dailyForecast.forEach(function (forecastDay, index) {
+    if (index < 6) {
+      forecastHTML =
+        forecastHTML +
+        `<div class="col-2">
+    <div class="forcast-date">
+    ${formatedForecastDay(forecastDay.dt)}
+    </div>
+    <img id="forecast-icon" src="http://openweathermap.org/img/wn/${
+      forecastDay.weather[0].icon
+    }@2x.png" alt="forecast-icon" width="36">
+    <span class="forecast-min-temperature"> ${Math.round(
+      forecastDay.temp.min
+    )}° </span>
+    <span class="forecast-max-temperature"> ${Math.round(
+      forecastDay.temp.max
+    )}° </span>
+    </div>`;
+    }
+  });
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+  console.log(forecastHTML);
 }
 
-getCurrentFormatedDate();
-// toDo:
-// make functions more modular
-// make updateWeather more readable, timm it a little maybe
-// add unit convention
-function updateWeather(response) {
-  // console.log(response);
-  const temperature = Math.round(response.data.main.temp);
-  const weatherInfo = response.data.weather[0].description;
-  const humidityInfo = response.data.main.humidity;
-  const windspeedInfo = response.data.wind.speed;
-  const tempMinInfo = Math.round(response.data.main.temp_min);
-  const tempMaxInfo = Math.round(response.data.main.temp_max);
+function displayCurrentWeather(data) {
+  const temperature = Math.round(data.main.temp);
+  const weatherInfo = data.weather[0].description;
+  const humidityInfo = data.main.humidity;
+  const windspeedInfo = data.wind.speed;
+  const tempMinInfo = Math.round(data.main.temp_min);
+  const tempMaxInfo = Math.round(data.main.temp_max);
   const weather = document.querySelector("#weather-info");
   const h3 = document.querySelector("#city-name");
   const temperatureElement = document.querySelector("#temperature");
@@ -54,62 +82,59 @@ function updateWeather(response) {
   const iconElement = document.querySelector("#icon");
   temperatureElement.innerHTML = `${temperature}`;
   weather.innerHTML = `${weatherInfo}`;
-  h3.innerHTML = `${response.data.name}`;
+  h3.innerHTML = `${data.name}`;
   humidity.innerHTML = `Humidity: ${humidityInfo} %`;
   windspeed.innerHTML = `Windspeed: ${windspeedInfo} km/h`;
   tempMin.innerHTML = `Minimum: ${tempMinInfo} °C`;
   tempMax.innerHTML = `Maximum: ${tempMaxInfo} °C`;
   iconElement.setAttribute(
     "src",
-    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+    `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
   );
 }
 
-function changeToCityInput(event) {
-  event.preventDefault();
-  const cityInput = document.querySelector("#city-input");
-  search(cityInput.value);
+//  updating functions (to get data)
+async function getForecast(coordinates) {
+  const apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=f7577236b82e90879ca7e6c7b2f05c47&units=${units}`;
+  const { data } = await axios.get(apiUrl);
+  displayForecast(data);
 }
-
-async function showLocation(position) {
+async function updateForCurrentLocation(position) {
   const { latitude, longitude } = position.coords;
   const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${units}`;
-  const weatherObject = await axios.get(apiUrl);
-  search(weatherObject.data.name);
-}
-function currentLocationButtonHandler(position) {
-  navigator.geolocation.getCurrentPosition(showLocation);
+  const { data } = await axios.get(apiUrl);
+  getForecast(data.coord);
+  displayCurrentWeather(data);
 }
 
+async function updateForCity(city) {
+  const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=f7577236b82e90879ca7e6c7b2f05c47&units=${units}`;
+  const { data } = await axios.get(apiUrl);
+  displayCurrentWeather(data);
+  getForecast(data.coord);
+}
+// utility functions
+
+// clickHandlers
+
+function currentLocationButtonHandler(event) {
+  navigator.geolocation.getCurrentPosition(updateForCurrentLocation);
+}
+function submitButtonHandler(event) {
+  event.preventDefault();
+  const cityInput = document.querySelector("#city-input");
+  updateForCity(cityInput.value);
+}
 const submitButton = document.querySelector("#submit-form");
-submitButton.addEventListener("submit", changeToCityInput);
+submitButton.addEventListener("submit", submitButtonHandler);
 document.addEventListener("keyup", function (event) {
   if (event.key === "Enter") {
-    changeToCityInput(event);
+    submitButtonHandler(event);
   }
 });
+
 const currentLocationButton = document.querySelector("#location-button");
 currentLocationButton.addEventListener("click", currentLocationButtonHandler);
 
-search("Berlin");
-
-function displayFahrenheitTemperature(event) {
-  event.preventDefault();
-  const temperatureElement = document.querySelector("#temperature");
-  celsiusTemperature = +temperatureElement.innerHTML;
-  const fahrenheitTemperature = `${
-    (temperatureElement.innerHTML * 9) / 5 + 32
-  }`;
-  temperatureElement.innerHTML = `${Math.round(fahrenheitTemperature)}`;
-}
-function displayCelsiusTemperature(event) {
-  event.preventDefault();
-  const temperatureElement = document.querySelector("#temperature");
-  temperatureElement.innerHTML = `${celsiusTemperature}`;
-}
-
-const fahrenheitLink = document.querySelector("#fahrenheit-link");
-fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
-
-const celsiusLink = document.querySelector("#celsius-link");
-celsiusLink.addEventListener("click", displayCelsiusTemperature);
+// default city on load
+updateForCity("Berlin");

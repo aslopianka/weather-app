@@ -22,10 +22,6 @@ p {
     margin: 0;
 }
 
-span {
-    font-size: 12px;
-}
-
 a {
     color: #000;
 
@@ -74,6 +70,7 @@ a {
 }
 
 
+
 #location-button {
     background-color: #b1c2a3;
     border-color: #b1c2a3;
@@ -94,8 +91,10 @@ a {
     margin-right: 10px;
 }
 
+
 #units {
-    margin-top: 30px;
+    margin-top: 36px;
+    font-size: 20px;
 }
 
 #box {
