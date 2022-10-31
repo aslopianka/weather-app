@@ -1,4 +1,6 @@
-# weather-app build with java script 
+# weather-app 
+
+built with vanilla java script 
 
 This app fetches weather data from OpenWeather API for current weather as well as a 5 day forecast.
 
