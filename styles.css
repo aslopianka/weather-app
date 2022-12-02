@@ -1,116 +1,140 @@
 h1 {
-    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-    font-weight: 300;
-    margin-top: 35px;
-    margin-bottom: 0px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-weight: 300;
+  margin-top: 35px;
+  margin-bottom: 0px;
 }
 
-
 h6 {
-    margin-top: 23px;
+  margin-top: 23px;
 }
 
 ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
 
-
-
 p {
-    margin: 0;
+  margin: 0;
 }
 
 a {
-    color: #000;
-
+  color: #000;
 }
 
 .container {
-    padding-top: 50px;
+  padding-top: 50px;
 }
 
 .image-container {
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
 }
 
 .temperature-container {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: flex-start;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
 }
 
 .forecast {
-    text-align: center;
-    margin-top: 20px;
-
+  text-align: center;
+  margin-top: 20px;
 }
 
 .forecast-date {
-    font-size: 16px;
+  font-size: 16px;
 }
 
 .forecast-min-temperature {
-    font-size: 13px;
+  font-size: 13px;
 }
 
 .forecast-max-temperature {
-    font-size: 13px;
-
+  font-size: 13px;
 }
 
 #icon {
-    max-width: 100%;
-    margin-top: 50px;
-
+  max-width: 100%;
+  margin-top: 50px;
 }
 
-
-
 #location-button {
-    background-color: #b1c2a3;
-    border-color: #b1c2a3;
+  background-color: #b1c2a3;
+  border-color: #b1c2a3;
 }
 
 #submit-button {
-    background-color: #b1c2a3;
-    border-color: #b1c2a3;
-    margin-left: 10px;
+  background-color: #b1c2a3;
+  border-color: #b1c2a3;
+  margin-left: 10px;
 }
 
 #additional-info {
-    margin-top: 60px;
+  margin-top: 60px;
 }
 
 #temperature {
-    margin-top: 15px;
-    margin-right: 10px;
+  margin-top: 15px;
+  margin-right: 10px;
 }
 
-
 #units {
-    margin-top: 36px;
-    font-size: 20px;
+  margin-top: 36px;
+  font-size: 20px;
 }
 
 #box {
-    border: solid 1px lightgray;
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3);
-    padding: 20px 30px 30px 30px;
-    border-radius: 6px;
-    max-width: 70%;
-    /* background-color: #F7F2EC; */
+  border: solid 1px lightgray;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3);
+  padding: 20px 30px 30px 30px;
+  border-radius: 6px;
+  max-width: 70%;
 }
 
 #city-input {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 #temperature {
-    font-size: 65px;
-    font-weight: 400;
+  font-size: 65px;
+  font-weight: 400;
+}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  [class*='col-'] {
+    width: 100%;
+  }
+  #box {
+    max-width: 100%;
+  }
+  .formatting-small-screen {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+  .formatting-small-screen-list {
+    display: flex;
+    flex-direction: column;
+  }
+  .temperature-container {
+    display: flex;
+    justify-content: center;
+  }
+  #additional-info {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .spacing-small-screen {
+    margin-bottom: 30px;
+  }
+  .source-link {
+    text-align: center;
+    display: block;
+  }
 }

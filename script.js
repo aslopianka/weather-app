@@ -1,16 +1,16 @@
-const apiKey = "f7577236b82e90879ca7e6c7b2f05c47";
-const units = "metric";
+const apiKey = 'f7577236b82e90879ca7e6c7b2f05c47';
+const units = 'metric';
 
 function getCurrentFormatedDate() {
   const now = new Date();
   const days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thurday",
-    "Friday",
-    "Saturday",
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thurday',
+    'Friday',
+    'Saturday',
   ];
   let day = days[now.getDay()];
   let hours = now.getHours();
@@ -22,7 +22,7 @@ function getCurrentFormatedDate() {
     minutes = `0${minutes}`;
   }
 
-  const date = document.querySelector("#date");
+  const date = document.querySelector('#date');
   date.innerHTML = `${day}, ${hours}:${minutes}`;
 }
 getCurrentFormatedDate();
@@ -30,7 +30,7 @@ getCurrentFormatedDate();
 function formatedForecastDay(timestamp) {
   let date = new Date(timestamp * 1000);
   let day = date.getDay();
-  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  let days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   return days[day];
 }
 // functions to update userInterface (UI)
@@ -38,13 +38,13 @@ function formatedForecastDay(timestamp) {
 function displayForecast(data) {
   console.log(data);
   let dailyForecast = data.daily;
-  const forecastElement = document.querySelector("#forecast");
+  const forecastElement = document.querySelector('#forecast');
   let forecastHTML = `<div class="row">`;
   dailyForecast.forEach(function (forecastDay, index) {
     if (index < 6) {
       forecastHTML =
         forecastHTML +
-        `<div class="col-2">
+        `<div class="col-2 spacing-small-screen">
     <div class="forcast-date">
     ${formatedForecastDay(forecastDay.dt)}
     </div>
@@ -72,14 +72,14 @@ function displayCurrentWeather(data) {
   const windspeedInfo = data.wind.speed;
   const tempMinInfo = Math.round(data.main.temp_min);
   const tempMaxInfo = Math.round(data.main.temp_max);
-  const weather = document.querySelector("#weather-info");
-  const h3 = document.querySelector("#city-name");
-  const temperatureElement = document.querySelector("#temperature");
-  const humidity = document.querySelector("#humidity");
-  const windspeed = document.querySelector("#windspeed");
-  const tempMin = document.querySelector("#temp-min");
-  const tempMax = document.querySelector("#temp-max");
-  const iconElement = document.querySelector("#icon");
+  const weather = document.querySelector('#weather-info');
+  const h3 = document.querySelector('#city-name');
+  const temperatureElement = document.querySelector('#temperature');
+  const humidity = document.querySelector('#humidity');
+  const windspeed = document.querySelector('#windspeed');
+  const tempMin = document.querySelector('#temp-min');
+  const tempMax = document.querySelector('#temp-max');
+  const iconElement = document.querySelector('#icon');
   temperatureElement.innerHTML = `${temperature}`;
   weather.innerHTML = `${weatherInfo}`;
   h3.innerHTML = `${data.name}`;
@@ -88,7 +88,7 @@ function displayCurrentWeather(data) {
   tempMin.innerHTML = `Minimum: ${tempMinInfo} °C`;
   tempMax.innerHTML = `Maximum: ${tempMaxInfo} °C`;
   iconElement.setAttribute(
-    "src",
+    'src',
     `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
   );
 }
@@ -122,19 +122,19 @@ function currentLocationButtonHandler(event) {
 }
 function submitButtonHandler(event) {
   event.preventDefault();
-  const cityInput = document.querySelector("#city-input");
+  const cityInput = document.querySelector('#city-input');
   updateForCity(cityInput.value);
 }
-const submitButton = document.querySelector("#submit-form");
-submitButton.addEventListener("submit", submitButtonHandler);
-document.addEventListener("keyup", function (event) {
-  if (event.key === "Enter") {
+const submitButton = document.querySelector('#submit-form');
+submitButton.addEventListener('submit', submitButtonHandler);
+document.addEventListener('keyup', function (event) {
+  if (event.key === 'Enter') {
     submitButtonHandler(event);
   }
 });
 
-const currentLocationButton = document.querySelector("#location-button");
-currentLocationButton.addEventListener("click", currentLocationButtonHandler);
+const currentLocationButton = document.querySelector('#location-button');
+currentLocationButton.addEventListener('click', currentLocationButtonHandler);
 
 // default city on load
-updateForCity("Berlin");
+updateForCity('Berlin');
